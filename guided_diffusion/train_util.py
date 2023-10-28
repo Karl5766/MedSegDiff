@@ -201,9 +201,9 @@ class TrainLoop:
             self.save()
 
     def run_step(self, batch, cond):
-        batch=th.cat((batch, cond), dim=1)
+        batch = th.cat((batch, cond), dim=1)
 
-        cond={}
+        cond = {}
         sample = self.forward_backward(batch, cond)
         took_step = self.mp_trainer.optimize(self.opt)
         if took_step:
