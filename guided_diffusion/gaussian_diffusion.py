@@ -343,6 +343,7 @@ class GaussianDiffusion:
 
 
     def _predict_xstart_from_eps(self, x_t, t, eps):
+        print(x_t.shape, eps.shape)
         assert x_t.shape == eps.shape
         return (
             _extract_into_tensor(self.sqrt_recip_alphas_cumprod, t, x_t.shape) * x_t
@@ -407,12 +408,6 @@ class GaussianDiffusion:
             x_start=out["pred_xstart"], x_t=x, t=t
         )
         return out, eps
-
-
-    def sample_known(self, img, batch_size = 1):
-        image_size = self.image_size
-        channels = self.channels
-        return self.p_sample_loop_known(model,(batch_size, channels, image_size, image_size), img)
 
     def p_sample(
         self,
